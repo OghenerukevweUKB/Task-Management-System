@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+
+<body>
+    <h3>Category list</h3>
+
+    <a href="{%url 'create_category'%}">create category</a>
+    <br>
+    <br>
+
+    <a href="{% url 'task_chart'%}">View task chart</a>
+
+    <table>
+        <thead>
+            <tr>
+                <th>Name</th>
+                <th>Action</th>
+            </tr>
+        </thead>
+        <tbody>
+            {%for category in categories%}
+            <tr>
+                <td>
+                    <a href="{% url 'category_tasks' category.id %}">{{category.name}}</a>
+                </td>
+                <td>
+                    <form method="post" action="{% url 'delete_category' category.id%}">
+                        {% csrf_token %}
+                        <button type="submit">Delete</button>
+                    </form>
+                </td>
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+</body>
+
+</html>
